@@ -80,7 +80,9 @@ endif
 
 " Color scheme
 set background=dark
+"syntax enable
 colorscheme monokai
+
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -142,6 +144,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Copy/Paste
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
+
 
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
