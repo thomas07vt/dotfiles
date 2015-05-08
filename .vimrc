@@ -170,3 +170,12 @@ endif
 
 " Running Pathogen
 execute pathogen#infect()
+
+" Set scrolloff to a large number to keep the cursor centered
+set scrolloff=999
+
+
+" Set relative number
+set relativenumber
+
+
