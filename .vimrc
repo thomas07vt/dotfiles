@@ -178,4 +178,5 @@ set scrolloff=999
 " Set relative number
 set relativenumber
 
-
+" NERDTree shortcue
+map <C-n> :NERDTreeToggle<CR>
