@@ -151,6 +151,8 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
+" ctrl+i now escaps from insert mode
+imap <C-i> <Esc>
 
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
