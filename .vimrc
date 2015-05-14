@@ -94,6 +94,9 @@ set colorcolumn=+1
 set number
 set numberwidth=5
 
+" ctrl-f now escaps from insert mode
+imap <C-f> <Esc>
+
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
@@ -108,6 +111,7 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
+
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
@@ -151,8 +155,6 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
-" ctrl+i now escaps from insert mode
-imap <C-i> <Esc>
 
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
