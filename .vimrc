@@ -156,6 +156,13 @@ vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
 
+" I don't like to hit shift all the time
+" so I am switching colon and semicolon
+" I don't know if I want to switch colon
+" to semi-colon though
+nmap ; :
+" nmap : ;
+
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
