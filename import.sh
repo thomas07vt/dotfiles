@@ -1,7 +1,8 @@
 cur_dir=`pwd`
 
-
+#####
 # Check to see if a .vimrc exists. If so, take a backup
+#####
 if [[ -e ~/.vimrc ]]
 then
   mv ~/.vimrc ~/.vimrc_vimp
@@ -10,8 +11,11 @@ fi
 ln -s "$cur_dir/.vimrc" ~/.vimrc
 
 
+#####
 # Let's backup the ~/.vim folder
+#####
 if [[ -e ~/.vim ]]
+then
   mv ~/.vim ~/.vim_vimp
 fi
 
@@ -36,6 +40,7 @@ ln -s "$cur_dir/bundle/nerdtree" ~/.vim/bundle/nerdtree
 if [[ -e ~/.gconf/apps/gnome-terminal ]]
 then
   mv ~/.gconf/apps/gnome-terminal ~/.gconf/apps/gnome-terminal_vimp
+  mkdir -p ~/.gconf/apps/gnome-terminal
   cp -r ./gnome-terminal/* ~/.gconf/apps/gnome-terminal/
 fi
 
