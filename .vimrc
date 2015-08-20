@@ -66,13 +66,16 @@ set expandtab
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
+set hlsearch
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  " set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --color
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --color -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
@@ -85,6 +88,7 @@ colorscheme monokai
 
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
+" highlight Search  guifg=yellow
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -111,6 +115,11 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
+
+" Insert tab in normal mode
+function! InsertTabNormalMode()
+endfunction
+nnoremap <Tab> A<c-r>="\<tab>"<cr>
 
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
@@ -150,11 +159,14 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 " Copy/Paste
-vmap <C-c> "+yi
+vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
+" Copy Whole Line in normal mode
+nmap <C-c> "+yy
+nmap <C-v> c<ESC>"+p
 
 " I don't like to hit shift all the time
 " so I am switching colon and semicolon
@@ -185,9 +197,19 @@ execute pathogen#infect()
 " Set scrolloff to a large number to keep the cursor centered
 set scrolloff=999
 
+" scroll by 10 at a time
+let g:BASH_Ctrl_j = 'off'
+let g:C_Ctrl_j = 'off'
+map <C-j> 10j
+
+let g:BASH_Ctrl_k = 'off'
+let g:C_Ctrl_k = 'off'
+map <C-k> 10k
 
 " Set relative number
 set relativenumber
 
 " NERDTree shortcue
 map <C-n> :NERDTreeToggle<CR>
+
+map q: :q
