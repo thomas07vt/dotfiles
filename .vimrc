@@ -99,7 +99,9 @@ set number
 set numberwidth=5
 
 " ctrl-f now escaps from insert mode
+" and all the others are just cause I always hit them :)
 imap <C-f> <Esc>
+nmap <C-f> <Esc>
 nmap <S-f> <Esc>
 
 " Tab completion
