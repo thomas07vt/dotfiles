@@ -100,6 +100,7 @@ set numberwidth=5
 
 " ctrl-f now escaps from insert mode
 imap <C-f> <Esc>
+nmap <S-f> <Esc>
 
 " Tab completion
 " will insert tab at beginning of line,
@@ -158,6 +159,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+
+
 " Copy/Paste
 vmap <C-c> "+y
 vmap <C-x> "+c
@@ -165,8 +168,12 @@ vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
 " Copy Whole Line in normal mode
+" I still want to be able to get into visual block :)
+nnoremap <S-v> <C-v>
+
 nmap <C-c> "+yy
 nmap <C-v> c<ESC>"+p
+
 
 " I don't like to hit shift all the time
 " so I am switching colon and semicolon
@@ -198,13 +205,17 @@ execute pathogen#infect()
 set scrolloff=999
 
 " scroll by 10 at a time
-let g:BASH_Ctrl_j = 'off'
-let g:C_Ctrl_j = 'off'
-map <C-j> 10j
+map <S-j> 10j
+map <S-k> 10k
+map <S-h> 30h
+map <S-l> 30l
+"let g:BASH_Ctrl_j = 'off'
+"let g:C_Ctrl_j = 'off'
+"map <C-j> 10j
 
-let g:BASH_Ctrl_k = 'off'
-let g:C_Ctrl_k = 'off'
-map <C-k> 10k
+"let g:BASH_Ctrl_k = 'off'
+"let g:C_Ctrl_k = 'off'
+"map <C-k> 10k
 
 " Set relative number
 set relativenumber
