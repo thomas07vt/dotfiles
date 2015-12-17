@@ -224,5 +224,7 @@ set relativenumber
 
 " NERDTree shortcue
 map <C-n> :NERDTreeToggle<CR>
+" Show hidden files
+let g:NERDTreeShowHidden=1
 
 map q: :q
