@@ -35,6 +35,12 @@ ln -s "$cur_dir/autoload/pathogen.vim" ~/.vim/autoload/pathogen.vim
 mkdir -p ~/.vim/bundle
 ln -s "$cur_dir/bundle/nerdtree" ~/.vim/bundle/nerdtree
 
+# Install ag.vim
+ln -s "$cur_dir/bundle/ag.vim" ~/.vim/bundle/ag.vim
+
+# Install Rust vim
+ln -s "$cur_dir/bundle/rust.vim" ~/.vim/bundle/rust.vim
+
 # Adding custom gnome-terminal settings
 # Let's backup the original gnome-settings...
 if [[ -e ~/.gconf/apps/gnome-terminal ]]
