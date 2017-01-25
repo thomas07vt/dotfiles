@@ -2,6 +2,9 @@
 " possible, as it has side effects.
 set nocompatible
 
+" Running Pathogen
+execute pathogen#infect()
+
 " Leader
 let mapleader='\'
 
@@ -52,6 +55,7 @@ augroup vimrcEx
   " Automatically wrap at 72 characters and spell check git commit messages
   autocmd FileType gitcommit setlocal textwidth=72
   autocmd FileType gitcommit setlocal spell
+  autocmd FileType gitcommit setlocal colorcolumn=73
 
   " Allow stylesheets to autocomplete hyphenated words
   autocmd FileType css,scss,sass setlocal iskeyword+=-
@@ -133,6 +137,11 @@ map <Leader>ct :!ctags -R .<CR>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+nnoremap <leader>erb i<%= %><ESC>2h i
+nnoremap <leader>div i<div></div><ESC>6h i
+nnoremap <leader>span i<span></span><ESC>7h i
+inoremap <leader><CR> <CR><C-o>==<C-o>O
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
@@ -159,8 +168,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
-
-
 
 " Copy/Paste
 vmap <C-c> "+y
@@ -199,9 +206,6 @@ if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
 
-" Running Pathogen
-execute pathogen#infect()
-
 " Set scrolloff to a large number to keep the cursor centered
 set scrolloff=999
 
@@ -226,4 +230,28 @@ map <C-n> :NERDTreeToggle<CR>
 " Show hidden files
 let g:NERDTreeShowHidden=1
 
-map q: :q
+"map q: :q
+
+" Set .ejs syntax highlighting to match html
+au BufNewFile,BufRead *.ejs set filetype=html
+
+" This will indent and set the cursor for html tags
+function! Expander()
+  let line   = getline(".")
+  let col    = col(".")
+  let first  = line[col-2]
+  let second = line[col-1]
+  let third  = line[col]
+
+  if first ==# ">"
+    if second ==# "<" && third ==# "/"
+      return "\<CR>\<C-o>==\<C-o>O"
+    else
+      return "\<CR>"
+    endif
+  else
+    return "\<CR>"
+  endif
+endfunction
+inoremap <expr> <CR> Expander()
+

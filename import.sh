@@ -44,6 +44,9 @@ ln -s "$cur_dir/bundle/rust.vim" ~/.vim/bundle/rust.vim
 # Install nerd commenter
 ln -s "$cur_dir/bundle/nerdcommenter" ~/.vim/bundle/nerdcommenter
 
+# Install vim-json
+ln -s "$cur_dir/bundle/vim-json" ~/.vim/bundle/vim-json
+
 # Adding custom gnome-terminal settings
 # Let's backup the original gnome-settings...
 if [[ -e ~/.gconf/apps/gnome-terminal ]]
