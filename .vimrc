@@ -140,7 +140,6 @@ nnoremap <leader><leader> <c-^>
 nnoremap <leader>erb i<%= %><ESC>2h i
 nnoremap <leader>div i<div></div><ESC>6h i
 nnoremap <leader>span i<span></span><ESC>7h i
-inoremap <leader><CR> <CR><C-o>==<C-o>O
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
@@ -237,15 +236,36 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " This will indent and set the cursor for html tags
 function! Expander()
-  let line   = getline(".")
-  let col    = col(".")
-  let first  = line[col-2]
-  let second = line[col-1]
-  let third  = line[col]
+  let ft = &ft
+  if ft == "eruby" || ft == "html"
+    let line   = getline(".")
+    let col    = col(".")
+    let first  = line[col-2]
+    let second = line[col-1]
+    let third  = line[col]
 
-  if first ==# ">"
-    if second ==# "<" && third ==# "/"
-      return "\<CR>\<C-o>==\<C-o>O"
+    if first ==# ">"
+      if second ==# "<" && third ==# "/"
+        return "\<CR>\<C-o>==\<C-o>O"
+      else
+        return "\<CR>"
+      endif
+    else
+      return "\<CR>"
+    endif
+  elseif ft == "ruby"
+    let line   = getline(".")
+    let col    = col(".")
+    let first  = line[col-4]
+    let second = line[col-3]
+    let third  = line[col-2]
+
+    if third ==# "o"
+      if second ==# "d" && first ==# " "
+        return "\<CR>end\<C-o>==\<C-o>O"
+      else
+        return "\<CR>"
+      endif
     else
       return "\<CR>"
     endif
