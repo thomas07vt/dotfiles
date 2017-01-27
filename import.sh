@@ -22,30 +22,35 @@ fi
 ######
 # Now we can move our own stuff into the ~/.vim folder
 ######
+mkdir -p ~/.vim/
 
-# Set up the  molokai vim color scheme
-mkdir -p ~/.vim/colors
-ln -s "$cur_dir/colors/monokai.vim" ~/.vim/colors/monokai.vim
+ln -s "$cur_dir/colors" ~/.vim/colors
+ln -s "$cur_dir/bundle/" ~/.vim/bundle
+ln -s "$cur_dir/autoload/" ~/.vim/autoload
 
-# Install pathogen.vim for plugins and runtime files
-mkdir -p ~/.vim/autoload ~/.vim/bundle
-ln -s "$cur_dir/autoload/pathogen.vim" ~/.vim/autoload/pathogen.vim
+## Set up the  molokai vim color scheme
+#mkdir -p ~/.vim/colors
+#ln -s "$cur_dir/colors/monokai.vim" ~/.vim/colors/monokai.vim
 
-# Install NERDTree
-mkdir -p ~/.vim/bundle
-ln -s "$cur_dir/bundle/nerdtree" ~/.vim/bundle/nerdtree
+## Install pathogen.vim for plugins and runtime files
+#mkdir -p ~/.vim/autoload ~/.vim/bundle
+#ln -s "$cur_dir/autoload/pathogen.vim" ~/.vim/autoload/pathogen.vim
 
-# Install ag.vim
-ln -s "$cur_dir/bundle/ag.vim" ~/.vim/bundle/ag.vim
+## Install NERDTree
+#mkdir -p ~/.vim/bundle
+#ln -s "$cur_dir/bundle/nerdtree" ~/.vim/bundle/nerdtree
 
-# Install Rust vim
-ln -s "$cur_dir/bundle/rust.vim" ~/.vim/bundle/rust.vim
+## Install ag.vim
+#ln -s "$cur_dir/bundle/ag.vim" ~/.vim/bundle/ag.vim
 
-# Install nerd commenter
-ln -s "$cur_dir/bundle/nerdcommenter" ~/.vim/bundle/nerdcommenter
+## Install Rust vim
+#ln -s "$cur_dir/bundle/rust.vim" ~/.vim/bundle/rust.vim
 
-# Install vim-json
-ln -s "$cur_dir/bundle/vim-json" ~/.vim/bundle/vim-json
+## Install nerd commenter
+#ln -s "$cur_dir/bundle/nerdcommenter" ~/.vim/bundle/nerdcommenter
+
+## Install vim-json
+#ln -s "$cur_dir/bundle/vim-json" ~/.vim/bundle/vim-json
 
 # Adding custom gnome-terminal settings
 # Let's backup the original gnome-settings...

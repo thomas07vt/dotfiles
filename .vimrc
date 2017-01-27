@@ -235,7 +235,7 @@ let g:NERDTreeShowHidden=1
 au BufNewFile,BufRead *.ejs set filetype=html
 
 " This will indent and set the cursor for html tags
-function! Expander()
+function! TestExpander()
   let ft = &ft
   if ft == "eruby" || ft == "html"
     let line   = getline(".")
@@ -266,6 +266,24 @@ function! Expander()
       else
         return "\<CR>"
       endif
+    else
+      return "\<CR>"
+    endif
+  else
+    return "\<CR>"
+  endif
+endfunction
+
+function! Expander()
+  let line   = getline(".")
+  let col    = col(".")
+  let first  = line[col-2]
+  let second = line[col-1]
+  let third  = line[col]
+
+  if first ==# ">"
+    if second ==# "<" && third ==# "/"
+      return "\<CR>\<C-o>==\<C-o>O"
     else
       return "\<CR>"
     endif
