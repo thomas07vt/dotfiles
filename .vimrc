@@ -137,9 +137,15 @@ map <Leader>ct :!ctags -R .<CR>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+inoremap <leader>erb <%= %><ESC>2h i
+inoremap <leader>div <div></div><ESC>6h i
+inoremap <leader>span <span></span><ESC>7h i
+
 nnoremap <leader>erb i<%= %><ESC>2h i
 nnoremap <leader>div i<div></div><ESC>6h i
 nnoremap <leader>span i<span></span><ESC>7h i
+
+nnoremap <leader>\ :Tabularize /
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
@@ -206,7 +212,7 @@ if filereadable($HOME . "/.vimrc.local")
 endif
 
 " Set scrolloff to a large number to keep the cursor centered
-set scrolloff=999
+"set scrolloff=999
 
 " scroll by 10 at a time
 map <S-j> 10j
@@ -222,7 +228,7 @@ map <S-l> 30l
 "map <C-k> 10k
 
 " Set relative number
-set relativenumber
+"set relativenumber
 
 " NERDTree shortcue
 map <C-n> :NERDTreeToggle<CR>

@@ -9,7 +9,7 @@ echo "postgresql installed, postgres user created";
 echo "Create pguser: sudo -u postgres createuser -s pguser"
 echo "Set password for db user: sudo -u postgres psql"
 echo "Set password pgcommand: \password pguser"
-echo "Create database pgcommand: CREATE DATABASE dbname OWNER rolename; (appname should be lowecase)"
+echo "Create database pgcommand: CREATE DATABASE dbname OWNER rolename; (appname should be lowecase, example: CREATE DATABASE 'railsapp' OWNER 'pguser';)"
 
 echo "log into postgres user: sudo -i -u postgres ";
 echo "get postgres prompt: psql"
