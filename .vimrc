@@ -18,88 +18,55 @@ set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
-
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-
-filetype plugin indent on
-
-augroup vimrcEx
-  autocmd!
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it for commit messages, when the position is invalid, or when
-  " inside an event handler (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-  " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
-
-  " Automatically wrap at 80 characters for Markdown
-  " autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-
-  " Automatically wrap at 72 characters and spell check git commit messages
-  autocmd FileType gitcommit setlocal textwidth=72
-  autocmd FileType gitcommit setlocal spell
-  autocmd FileType gitcommit setlocal colorcolumn=73
-
-  " Allow stylesheets to autocomplete hyphenated words
-  autocmd FileType css,scss,sass setlocal iskeyword+=-
-augroup END
-
-" Softtabs, 2 spaces
-set tabstop=2
+set tabstop=2     " Softtabs, 2 spaces
 set shiftwidth=2
 set shiftround
 set expandtab
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-set hlsearch
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  " set grepprg=ag\ --nogroup\ --nocolor
-  set grepprg=ag\ --nogroup\ --color
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_user_command = 'ag %s -l --color -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-" Color scheme
 set background=dark
-"syntax enable
-colorscheme monokai
-
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
-" highlight Search  guifg=yellow
-
-" Make it obvious where 80 characters is
-set colorcolumn=81
-
-" Numbers
 set number
 set numberwidth=5
+set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
+set hlsearch                             " Highlight search terms
+set colorcolumn=81                       " Make it obvious where 80 characters is
+set number
+set numberwidth=5
+set splitbelow " Open new split panes to right and bottom, which feels more natural
+set splitright " Open new split panes to right and bottom, which feels more natural
+colorscheme monokai
+highlight NonText guibg=#060606
+highlight Folded  guibg=#0A0A0A guifg=#9090D0
+
+" Move cursor by display lines when wrapping
+nnoremap j gj
+nnoremap k gk
+
+" Strip all trailing whitespace in the current file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Fold tag function
+" Change
+"   <div>
+"   </div>
+" To
+"   +----- 2 lines: <div>-----------
+"
+" Use 'zo' to open, or just go into insert mode
+nnoremap <leader>ft Vatzf
+
+" Edit .vimrc
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" Source .vimrc
+nnoremap <leader>sv :so $MYVIMRC<CR>
+
+" Open a new vertical split
+" nnoremap <leader>w <C-w>v<C-w>l
+" I often hit q instead of w
+nnoremap <leader>w :vnew<cr>
+nnoremap <leader>q :vnew<cr>
+
+" Open a new horizontal split
+" nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>i :new<cr>
 
 " ctrl-f now escaps from insert mode
 " and all the others are just cause I always hit them :)
@@ -123,24 +90,15 @@ inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
 " Insert tab in normal mode
-function! InsertTabNormalMode()
-endfunction
 nnoremap <Tab> A<c-r>="\<tab>"<cr>
 
-
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
 " Index ctags from any project, including those outside Rails
+" TODO: What does this do? Do I need this?
 map <Leader>ct :!ctags -R .<CR>
-
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
 
 inoremap <leader>erb <%= %><ESC>2h i
 inoremap <leader>div <div></div><ESC>6h i
 inoremap <leader>span <span></span><ESC>7h i
-
 nnoremap <leader>erb i<%= %><ESC>2h i
 nnoremap <leader>div i<div></div><ESC>6h i
 nnoremap <leader>span i<span></span><ESC>7h i
@@ -161,13 +119,6 @@ nnoremap <Leader>l :call RunLastSpec()<CR>
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
 
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
 " Quicker window movement
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -181,35 +132,14 @@ vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
 " Copy Whole Line in normal mode
-" I still want to be able to get into visual block :)
+" I still want to be able to get into visual block
 nnoremap <S-v> <C-v>
-
 nmap <C-c> "+yy
 nmap <C-v> c<ESC>"+p
 
-
-" I don't like to hit shift all the time
-" so I am switching colon and semicolon
-" I don't know if I want to switch colon
-" to semi-colon though
+" I don't like to hit shift all the time so I am switching colon and semicolon
+" I don’t remap : back to ; because it seems to break a bunch of plugins.
 nmap ; :
-" nmap : ;
-
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-
-" Set spellfile to location that is guaranteed to exist, can be symlinked to
-" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-set spellfile=$HOME/.vim-spell-en.utf-8.add
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
 
 " Set scrolloff to a large number to keep the cursor centered
 "set scrolloff=999
@@ -219,67 +149,90 @@ map <S-j> 10j
 map <S-k> 10k
 map <S-h> 30h
 map <S-l> 30l
-"let g:BASH_Ctrl_j = 'off'
-"let g:C_Ctrl_j = 'off'
-"map <C-j> 10j
 
-"let g:BASH_Ctrl_k = 'off'
-"let g:C_Ctrl_k = 'off'
-"map <C-k> 10k
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-" Set relative number
-"set relativenumber
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
 
-" NERDTree shortcue
-map <C-n> :NERDTreeToggle<CR>
-" Show hidden files
-let g:NERDTreeShowHidden=1
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-"map q: :q
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
 
-" Set .ejs syntax highlighting to match html
-au BufNewFile,BufRead *.ejs set filetype=html
+" Always use vertical diffs
+set diffopt+=vertical
 
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
+
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
+filetype plugin indent on
+
+augroup vimrcEx
+  autocmd!
+
+  " Markdown
+  " Recognize *.md as markdown files
+  " .md is used for Modula 2 files, but I don't care about those
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+  " Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+
+  " Gitcommit
+  " Automatically wrap at 72 characters and spell check git commit messages
+  autocmd FileType gitcommit setlocal textwidth=72
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType gitcommit setlocal colorcolumn=73
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Stylesheets
+  " Allow stylesheets to autocomplete hyphenated words
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+
+  " Set .ejs syntax highlighting to match html
+  autocmd BufNewFile,BufRead *.ejs set filetype=html
+augroup END
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  " set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --color
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --color -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" Local config
+if filereadable($HOME . "/.vimrc.local")
+  source ~/.vimrc.local
+endif
+
+" TODO: Do I need this?
 " This will indent and set the cursor for html tags
-function! TestExpander()
-  let ft = &ft
-  if ft == "eruby" || ft == "html"
-    let line   = getline(".")
-    let col    = col(".")
-    let first  = line[col-2]
-    let second = line[col-1]
-    let third  = line[col]
-
-    if first ==# ">"
-      if second ==# "<" && third ==# "/"
-        return "\<CR>\<C-o>==\<C-o>O"
-      else
-        return "\<CR>"
-      endif
-    else
-      return "\<CR>"
-    endif
-  elseif ft == "ruby"
-    let line   = getline(".")
-    let col    = col(".")
-    let first  = line[col-4]
-    let second = line[col-3]
-    let third  = line[col-2]
-
-    if third ==# "o"
-      if second ==# "d" && first ==# " "
-        return "\<CR>end\<C-o>==\<C-o>O"
-      else
-        return "\<CR>"
-      endif
-    else
-      return "\<CR>"
-    endif
-  else
-    return "\<CR>"
-  endif
-endfunction
-
 function! Expander()
   let line   = getline(".")
   let col    = col(".")
@@ -298,4 +251,26 @@ function! Expander()
   endif
 endfunction
 inoremap <expr> <CR> Expander()
+
+
+" NERD
+"""""""""""""""
+" NERDTree shortcue
+map <C-n> :NERDTreeToggle<CR>
+" Show hidden files
+let g:NERDTreeShowHidden=1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'javascript': { 'left': '//', 'leftAlt': '//', 'rightAlt': '' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
 
