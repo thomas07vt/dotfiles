@@ -141,8 +141,8 @@ nmap <C-v> c<ESC>"+p
 " I don’t remap : back to ; because it seems to break a bunch of plugins.
 nmap ; :
 
-" Set scrolloff to a large number to keep the cursor centered
-"set scrolloff=999
+" Add padding when scrolling to see what is below or above cursor
+set scrolloff=5
 
 " scroll by 10 at a time
 map <S-j> 10j
