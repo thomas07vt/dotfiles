@@ -38,7 +38,6 @@ ufw enable
 
 # Enable automatic security updates
 apt-get install unattended-upgrades
-vim /etc/apt/apt.conf.d/10periodic
 
 #
 echo 'APT::Periodic::Update-Package-Lists "1";
