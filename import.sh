@@ -27,12 +27,17 @@ ln -s "$cur_dir/colors" ~/.vim/colors
 ln -s "$cur_dir/bundle/" ~/.vim/bundle
 ln -s "$cur_dir/autoload/" ~/.vim/autoload
 
-# Adding custom gnome-terminal settings
-# Let's backup the original gnome-settings...
-if [[ -e ~/.gconf/apps/gnome-terminal ]]
-then
-  mv ~/.gconf/apps/gnome-terminal ~/.gconf/apps/gnome-terminal_vimp
-  mkdir -p ~/.gconf/apps/gnome-terminal
-  cp -r ./gnome-terminal/* ~/.gconf/apps/gnome-terminal/
-fi
+#####
+# Import .Xmodmap
+#####
+#ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
+
+## Adding custom gnome-terminal settings
+## Let's backup the original gnome-settings...
+#if [[ -e ~/.gconf/apps/gnome-terminal ]]
+#then
+#  mv ~/.gconf/apps/gnome-terminal ~/.gconf/apps/gnome-terminal_vimp
+#  mkdir -p ~/.gconf/apps/gnome-terminal
+#  cp -r ./gnome-terminal/* ~/.gconf/apps/gnome-terminal/
+#fi
 
