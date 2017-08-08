@@ -13,3 +13,9 @@
 [submodule "bundle/vim-endwise"]
 	path = bundle/vim-endwise
 	url = git://github.com/tpope/vim-endwise.git
+[submodule "bundle/vim-less"]
+	path = bundle/vim-less
+	url = https://github.com/groenewege/vim-less
+[submodule "bundle/vim-ripgrep"]
+	path = bundle/vim-ripgrep
+	url = git@github.com:jremmen/vim-ripgrep.git
