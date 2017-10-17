@@ -26,6 +26,7 @@ mkdir -p ~/.vim/
 ln -s "$cur_dir/colors" ~/.vim/colors
 ln -s "$cur_dir/bundle/" ~/.vim/bundle
 ln -s "$cur_dir/autoload/" ~/.vim/autoload
+ln -s "$cur_dir/templates/" ~/.vim/templates
 
 #####
 # Import .Xmodmap

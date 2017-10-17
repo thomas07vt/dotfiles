@@ -252,6 +252,13 @@ function! Expander()
 endfunction
 inoremap <expr> <CR> Expander()
 
+function! Vue()
+    " ~/vim/templates/vue is the path to the .vue template file
+    r~/.vim/templates/vue
+endfunction
+inoremap <leader>vue <ESC>:call Vue()<CR>i
+nnoremap <leader>vue :call Vue()<CR>
+
 
 " NERD
 """""""""""""""
