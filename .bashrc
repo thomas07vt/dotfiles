@@ -37,5 +37,8 @@ alias vimclean="vim -u NONE"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 if [ -f '.ruby-gemset' ]; then cd .; fi
 
+# Xmodmap
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
 export PATH="$GEM_HOME/bin:$PATH"
 
