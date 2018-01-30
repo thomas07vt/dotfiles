@@ -33,6 +33,7 @@ set numberwidth=5
 set splitbelow " Open new split panes to right and bottom, which feels more natural
 set splitright " Open new split panes to right and bottom, which feels more natural
 colorscheme monokai
+
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -97,11 +98,13 @@ nnoremap <Tab> A<c-r>="\<tab>"<cr>
 map <Leader>ct :!ctags -R .<CR>
 
 inoremap <leader>erb <%= %><ESC>2h i
-inoremap <leader>div <div></div><ESC>6h i
-inoremap <leader>span <span></span><ESC>7h i
 nnoremap <leader>erb i<%= %><ESC>2h i
+inoremap <leader>div <div></div><ESC>6h i
 nnoremap <leader>div i<div></div><ESC>6h i
+inoremap <leader>span <span></span><ESC>7h i
 nnoremap <leader>span i<span></span><ESC>7h i
+inoremap <leader>p <p></p><ESC>7h i
+nnoremap <leader>p i<p></p><ESC>7h i
 
 nnoremap <leader>\ :Tabularize /
 
@@ -127,7 +130,7 @@ nnoremap <C-l> <C-w>l
 
 " Copy/Paste
 vmap <C-c> "+y
-vmap <C-x> "+c
+ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
@@ -212,20 +215,6 @@ augroup vimrcEx
   autocmd BufNewFile,BufRead *.ejs set filetype=html
 augroup END
 
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  " set grepprg=ag\ --nogroup\ --nocolor
-  set grepprg=ag\ --nogroup\ --color
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_user_command = 'ag %s -l --color -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
 " Local config
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
@@ -259,6 +248,20 @@ endfunction
 inoremap <leader>vue <ESC>:call Vue()<CR>i
 nnoremap <leader>vue :call Vue()<CR>
 
+" Vim rails helpers
+inoremap <leader>av <ESC>:AV
+nnoremap <leader>av :AV<CR>
+inoremap <leader>rv <ESC>:RV
+nnoremap <leader>rv :RV<CR>
+inoremap <leader>ai <ESC>:AS
+nnoremap <leader>ai :AS<CR>
+inoremap <leader>ri <ESC>:RS
+nnoremap <leader>ri :RS<CR>
+
+" Rg helper
+inoremap <leader>g <ESC>:Rg<Space>
+nnoremap <leader>g :Rg<Space>
+
 
 " NERD
 """""""""""""""
@@ -280,4 +283,5 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 

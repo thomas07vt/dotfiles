@@ -31,14 +31,5 @@ ln -s "$cur_dir/templates/" ~/.vim/templates
 #####
 # Import .Xmodmap
 #####
-#ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
-
-## Adding custom gnome-terminal settings
-## Let's backup the original gnome-settings...
-#if [[ -e ~/.gconf/apps/gnome-terminal ]]
-#then
-#  mv ~/.gconf/apps/gnome-terminal ~/.gconf/apps/gnome-terminal_vimp
-#  mkdir -p ~/.gconf/apps/gnome-terminal
-#  cp -r ./gnome-terminal/* ~/.gconf/apps/gnome-terminal/
-#fi
+ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
 
