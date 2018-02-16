@@ -33,3 +33,23 @@ ln -s "$cur_dir/templates/" ~/.vim/templates
 #####
 ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
 
+#####
+# Import .profile and .bashrc files
+#####
+
+#####
+# Check to see if a .profile exists. If so, take a backup
+#####
+if [[ -e ~/.profile ]]
+then
+  mv ~/.profile ~/.profile_vimp
+fi
+
+if [[ -e ~/.bashrc ]]
+then
+  mv ~/.bashrc ~/.bashrc_vimp
+fi
+
+ln -s "$cur_dir/.profile" ~/.profile
+ln -s "$cur_dir/.bashrc" ~/.bashrc
+
