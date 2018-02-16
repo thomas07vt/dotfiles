@@ -130,9 +130,12 @@ nnoremap <C-l> <C-w>l
 
 " Copy/Paste
 vmap <C-c> "+y
- vmap <C-x> "+c
+vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
+
+nnoremap <leader>cw "+yiw
+
 
 " Copy Whole Line in normal mode
 " I still want to be able to get into visual block
@@ -247,6 +250,20 @@ function! Vue()
 endfunction
 inoremap <leader>vue <ESC>:call Vue()<CR>i
 nnoremap <leader>vue :call Vue()<CR>
+
+function! Vuex()
+    " ~/vim/templates/vue is the path to the .vue template file
+    r~/.vim/templates/vuex
+endfunction
+inoremap <leader>vuex <ESC>:call Vuex()<CR>i
+nnoremap <leader>vuex :call Vuex()<CR>
+
+function! WhoisExpected()
+    " ~/vim/templates/vue is the path to the .vue template file
+    r~/.vim/templates/expected
+endfunction
+inoremap <leader>expected <ESC>:call WhoisExpected()<CR>i
+nnoremap <leader>expected :call WhoisExpected()<CR>
 
 " Vim rails helpers
 inoremap <leader>av <ESC>:AV

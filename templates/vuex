@@ -1,0 +1,12 @@
+const <name> = {
+  namespaced: true,
+  // key should be the id, and value should be the object:
+  // { id: { id: id, name: name, ... }}
+  state: {},
+  getters: {},
+  actions: {},
+  mutations: {}
+}
+
+export default <name>
+
