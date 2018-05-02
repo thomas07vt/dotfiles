@@ -14,7 +14,7 @@ set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 set history=50
 set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
+" set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
@@ -103,8 +103,8 @@ inoremap <leader>div <div></div><ESC>6h i
 nnoremap <leader>div i<div></div><ESC>6h i
 inoremap <leader>span <span></span><ESC>7h i
 nnoremap <leader>span i<span></span><ESC>7h i
-inoremap <leader>p <p></p><ESC>7h i
-nnoremap <leader>p i<p></p><ESC>7h i
+inoremap <leader>p <p></p><ESC>4h i
+nnoremap <leader>p i<p></p><ESC>4h i
 
 nnoremap <leader>\ :Tabularize /
 
@@ -133,9 +133,10 @@ vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
-
+" copy word
 nnoremap <leader>cw "+yiw
-
+" copy page
+nnoremap <leader>cp ggv<S-g><S-$>"+y
 
 " Copy Whole Line in normal mode
 " I still want to be able to get into visual block
@@ -302,3 +303,11 @@ let g:NERDTrimTrailingWhitespace = 1
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
+" pry
+nnoremap <leader>pry ibinding.pry
+
+" move whole lines in visual mode
+" move selected lines up one line
+xnoremap <C-k>  :m-2<CR>gv=gv
+" move selected lines down one line
+xnoremap <C-j> :m'>+<CR>gv=gv
