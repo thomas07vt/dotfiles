@@ -3,7 +3,7 @@
 apt-get update
 apt-get upgrade -y
 
-apt-get install fail2ban -y
+apt-get install fail2ban ufw -y
 
 useradd deploy
 mkdir /home/deploy

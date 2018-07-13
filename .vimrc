@@ -52,7 +52,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 "   +----- 2 lines: <div>-----------
 "
 " Use 'zo' to open, or just go into insert mode
-nnoremap <leader>ft Vatzf
+" nnoremap <leader>ft Vatzf
 
 " Edit .vimrc
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -99,12 +99,14 @@ map <Leader>ct :!ctags -R .<CR>
 
 inoremap <leader>erb <%= %><ESC>2h i
 nnoremap <leader>erb i<%= %><ESC>2h i
-inoremap <leader>div <div></div><ESC>6h i
-nnoremap <leader>div i<div></div><ESC>6h i
-inoremap <leader>span <span></span><ESC>7h i
-nnoremap <leader>span i<span></span><ESC>7h i
-inoremap <leader>p <p></p><ESC>4h i
-nnoremap <leader>p i<p></p><ESC>4h i
+inoremap <leader>div <div class=""></div><ESC>6h i
+nnoremap <leader>div i<div class=""></div><ESC>6h i
+inoremap <leader>span <span class=""></span><ESC>7h i
+nnoremap <leader>span i<span class=""></span><ESC>7h i
+inoremap <leader>p <p class=""></p><ESC>4h i
+nnoremap <leader>p i<p class=""></p><ESC>4h i
+inoremap <leader>section <section class=""></section><ESC>10h i
+nnoremap <leader>section i<section class=""></section><ESC>10h i
 
 nnoremap <leader>\ :Tabularize /
 
@@ -157,10 +159,6 @@ map <S-k> 10k
 map <S-h> 30h
 map <S-l> 30l
 
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
@@ -193,9 +191,12 @@ augroup vimrcEx
   " Recognize *.md as markdown files
   " .md is used for Modula 2 files, but I don't care about those
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile *.c set filetype=c
 
   " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
+
+  autocmd FileType c setlocal noexpandtab
 
   " Gitcommit
   " Automatically wrap at 72 characters and spell check git commit messages
@@ -224,26 +225,26 @@ if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
 
-" TODO: Do I need this?
-" This will indent and set the cursor for html tags
-function! Expander()
-  let line   = getline(".")
-  let col    = col(".")
-  let first  = line[col-2]
-  let second = line[col-1]
-  let third  = line[col]
-
-  if first ==# ">"
-    if second ==# "<" && third ==# "/"
-      return "\<CR>\<C-o>==\<C-o>O"
-    else
-      return "\<CR>"
-    endif
-  else
-    return "\<CR>"
-  endif
-endfunction
-inoremap <expr> <CR> Expander()
+"" TODO: Do I need this?
+"" This will indent and set the cursor for html tags
+"function! Expander()
+"  let line   = getline(".")
+"  let col    = col(".")
+"  let first  = line[col-2]
+"  let second = line[col-1]
+"  let third  = line[col]
+"
+"  if first ==# ">"
+"    if second ==# "<" && third ==# "/"
+"      return "\<CR>\<C-o>==\<C-o>O"
+"    else
+"      return "\<CR>"
+"    endif
+"  else
+"    return "\<CR>"
+"  endif
+"endfunction
+"inoremap <expr> <CR> Expander()
 
 function! Vue()
     " ~/vim/templates/vue is the path to the .vue template file
@@ -301,7 +302,7 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
 
 " pry
 nnoremap <leader>pry ibinding.pry
@@ -311,3 +312,8 @@ nnoremap <leader>pry ibinding.pry
 xnoremap <C-k>  :m-2<CR>gv=gv
 " move selected lines down one line
 xnoremap <C-j> :m'>+<CR>gv=gv
+
+" don't run prettier on save, instead use <leader>p when neaded
+let g:prettier#exec_cmd_path = "~/.config/yarn/global/node_modules/.bin/prettier"
+let g:prettier#autoformat = 0
+nmap <leader>f :Prettier<CR>
