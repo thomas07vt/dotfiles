@@ -40,3 +40,6 @@
 [submodule "bundle/vim-prettier"]
 	path = bundle/vim-prettier
 	url = https://github.com/prettier/vim-prettier
+[submodule "bundle/vim-slim"]
+	path = bundle/vim-slim
+	url = git@github.com:slim-template/vim-slim.git
