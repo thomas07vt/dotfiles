@@ -1,17 +1,45 @@
 " Use Vim settings, rather then Vi settings. This setting must be as early as
 " possible, as it has side effects.
 set nocompatible
+set encoding=utf-8
+scriptencoding utf-8
 
-" Running Pathogen
-execute pathogen#infect()
+" VimPlug
+" To install for the first time, run :PlugInstall
+" To update your plugins, run :PlugUpdate
+" To remove undeclared plugins run :PlugClean
+call plug#begin('~/.vim/plugged')
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'rust-lang/rust.vim'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'groenewege/vim-less'
+Plug 'prettier/vim-prettier'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'thoughtbot/vim-rspec'
+Plug 'jremmen/vim-ripgrep'
+Plug 'slim-template/vim-slim'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-surround'
+Plug 'posva/vim-vue'
+
+call plug#end()
 
 " Leader
 let mapleader='\'
 
 set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+set nobackup      " no backup files
+set nowritebackup " 
+set noswapfile    " no swap files
 set history=50
 set ruler         " show the cursor position all the time
 " set showcmd       " display incomplete commands
@@ -34,6 +62,7 @@ set splitbelow " Open new split panes to right and bottom, which feels more natu
 set splitright " Open new split panes to right and bottom, which feels more natural
 colorscheme monokai
 
+syntax on " Syntax highlighting on
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -167,11 +196,6 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -277,26 +301,11 @@ inoremap <leader>g <ESC>:Rg<Space>
 nnoremap <leader>g :Rg<Space>
 
 
-" NERD
-"""""""""""""""
-" NERDTree shortcue
-map <C-n> :NERDTreeToggle<CR>
-" Show hidden files
-let g:NERDTreeShowHidden=1
+" NERDTree
+map <C-n> :NERDTreeToggle<CR> " NERDTree shortcue
+let g:NERDTreeShowHidden=1 " Show hidden files
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'javascript': { 'left': '//', 'leftAlt': '//', 'rightAlt': '' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
+" CtrlP
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
 
 " pry
@@ -308,7 +317,7 @@ xnoremap <C-k>  :m-2<CR>gv=gv
 " move selected lines down one line
 xnoremap <C-j> :m'>+<CR>gv=gv
 
-" don't run prettier on save, instead use <leader>p when neaded
+" don't run prettier on save, instead use <leader>f when neaded
 let g:prettier#exec_cmd_path = "~/.config/yarn/global/node_modules/.bin/prettier"
 let g:prettier#autoformat = 0
 nmap <leader>f :Prettier<CR>
