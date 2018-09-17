@@ -30,36 +30,38 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-surround'
 Plug 'posva/vim-vue'
+Plug 'sjl/gundo.vim'             " learn
+Plug 'AndrewRadev/splitjoin.vim' " learn
+Plug 'yssl/QFEnter'
 
 call plug#end()
 
 " Leader
 let mapleader='\'
 
-set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup      " no backup files
-set nowritebackup " 
-set noswapfile    " no swap files
-set history=50
-set ruler         " show the cursor position all the time
-" set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-set autowrite     " Automatically :write before running commands
-set tabstop=2     " Softtabs, 2 spaces
-set shiftwidth=2
-set shiftround
-set expandtab
-set background=dark
-set number
-set numberwidth=5
+set backspace=2     " Backspace deletes like most programs in insert mode
+set nobackup        " No backup files
+set nowritebackup   " No write backup files
+set noswapfile      " No swap files
+set history=50      " How many commands to remember
+set ruler           " Show the cursor position all the time
+set incsearch       " do incremental searching
+set hlsearch        " Highlight search terms
+set laststatus=2    " Always display the status line
+set autowrite       " Automatically :write before running commands
+set tabstop=2       " Softtabs, 2 spaces
+set shiftwidth=2    " Number of spaces to use for autoindenting
+set shiftround      " Use multiple of shiftwidth when indenting with '<' and '>'
+set colorcolumn=81  " Make it obvious where 80 characters is
+set splitbelow      " Open new split panes to right and bottom, which feels more natural
+set expandtab       " Expand tabs to spaces.
+set background=dark " Set background to dark
+set number          " Use line numbers
+set numberwidth=4   " Width of gutter column
+set splitright      " Open new split panes to right and bottom, which feels more natural
+set scrolloff=5     " Add padding when scrolling to see what is around the cursor
 set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
-set hlsearch                             " Highlight search terms
-set colorcolumn=81                       " Make it obvious where 80 characters is
-set number
-set numberwidth=5
-set splitbelow " Open new split panes to right and bottom, which feels more natural
-set splitright " Open new split panes to right and bottom, which feels more natural
+
 colorscheme monokai
 
 syntax on " Syntax highlighting on
@@ -107,7 +109,6 @@ nmap <S-f> <Esc>
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
-set wildmode=list:longest,list:full
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -117,14 +118,10 @@ function! InsertTabWrapper()
     endif
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
-
 " Insert tab in normal mode
 nnoremap <Tab> A<c-r>="\<tab>"<cr>
-
-" Index ctags from any project, including those outside Rails
-" TODO: What does this do? Do I need this?
-map <Leader>ct :!ctags -R .<CR>
+" Show tab complete popup
+inoremap <S-Tab> <c-normal>
 
 inoremap <leader>erb <%= %><ESC>2h i
 nnoremap <leader>erb i<%= %><ESC>2h i
@@ -139,20 +136,22 @@ nnoremap <leader>section i<section class=""></section><ESC>10h i
 
 nnoremap <leader>\ :Tabularize /
 
-
 " vim-rspec mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
-
-" Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<space>
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Move windows around
+" nnoremap <C-w>j <C-w>J
+" nnoremap <C-w>k <C-w>K
+" nnoremap <C-w>h <C-w>H
+" nnoremap <C-w>l <C-w>L
 
 " Copy/Paste
 vmap <C-c> "+y
@@ -174,10 +173,7 @@ nmap <C-v> c<ESC>"+p
 " I don’t remap : back to ; because it seems to break a bunch of plugins.
 nmap ; :
 
-" Add padding when scrolling to see what is below or above cursor
-set scrolloff=5
-
-" scroll by 10 at a time
+" scroll by 10/30 at a time
 map <S-j> 10j
 map <S-k> 10k
 map <S-h> 30h
@@ -239,32 +235,7 @@ augroup vimrcEx
   autocmd BufNewFile,BufRead *.ejs set filetype=html
 augroup END
 
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
-
-"" TODO: Do I need this?
-"" This will indent and set the cursor for html tags
-"function! Expander()
-"  let line   = getline(".")
-"  let col    = col(".")
-"  let first  = line[col-2]
-"  let second = line[col-1]
-"  let third  = line[col]
-"
-"  if first ==# ">"
-"    if second ==# "<" && third ==# "/"
-"      return "\<CR>\<C-o>==\<C-o>O"
-"    else
-"      return "\<CR>"
-"    endif
-"  else
-"    return "\<CR>"
-"  endif
-"endfunction
-"inoremap <expr> <CR> Expander()
-
+" Template section
 function! Vue()
     " ~/vim/templates/vue is the path to the .vue template file
     r~/.vim/templates/vue
@@ -286,6 +257,7 @@ endfunction
 inoremap <leader>expected <ESC>:call WhoisExpected()<CR>i
 nnoremap <leader>expected :call WhoisExpected()<CR>
 
+
 " Vim rails helpers
 inoremap <leader>av <ESC>:AV
 nnoremap <leader>av :AV<CR>
@@ -300,13 +272,13 @@ nnoremap <leader>ri :RS<CR>
 inoremap <leader>g <ESC>:Rg<Space>
 nnoremap <leader>g :Rg<Space>
 
-
 " NERDTree
 map <C-n> :NERDTreeToggle<CR> " NERDTree shortcue
 let g:NERDTreeShowHidden=1 " Show hidden files
 
 " CtrlP
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
+nnoremap <C-B> :CtrlPBuffer<CR>
 
 " pry
 nnoremap <leader>pry ibinding.pry
