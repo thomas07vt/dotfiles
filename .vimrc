@@ -10,7 +10,7 @@ scriptencoding utf-8
 " To remove undeclared plugins run :PlugClean
 call plug#begin('~/.vim/plugged')
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'rust-lang/rust.vim'
 Plug 'godlygeek/tabular'
@@ -30,9 +30,10 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-surround'
 Plug 'posva/vim-vue'
-Plug 'sjl/gundo.vim'             " learn
-Plug 'AndrewRadev/splitjoin.vim' " learn
+Plug 'sjl/gundo.vim'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'yssl/QFEnter'
+Plug 'jeetsukumaran/vim-buffergator'
 
 call plug#end()
 
@@ -61,6 +62,10 @@ set numberwidth=4   " Width of gutter column
 set splitright      " Open new split panes to right and bottom, which feels more natural
 set scrolloff=5     " Add padding when scrolling to see what is around the cursor
 set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
+
+" FzF
+set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+nnoremap <C-p> :Files<CR>
 
 colorscheme monokai
 
@@ -192,11 +197,6 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
 
-
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-
 filetype plugin indent on
 
 augroup vimrcEx
@@ -276,10 +276,6 @@ nnoremap <leader>g :Rg<Space>
 map <C-n> :NERDTreeToggle<CR> " NERDTree shortcue
 let g:NERDTreeShowHidden=1 " Show hidden files
 
-" CtrlP
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
-nnoremap <C-B> :CtrlPBuffer<CR>
-
 " pry
 nnoremap <leader>pry ibinding.pry
 
@@ -293,3 +289,11 @@ xnoremap <C-j> :m'>+<CR>gv=gv
 let g:prettier#exec_cmd_path = "~/.config/yarn/global/node_modules/.bin/prettier"
 let g:prettier#autoformat = 0
 nmap <leader>f :Prettier<CR>
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" SplitJoin
+nnoremap gs :SplitjoinSplit<CR>
+nnoremap gj :SplitjoinJoin<CR>
+
