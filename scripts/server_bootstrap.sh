@@ -11,7 +11,7 @@ mkdir /home/deploy/.ssh
 chmod 700 /home/deploy/.ssh
 
 # Add public keys for SSH access
-curl https://pub.hashtagjohnt.com > /home/deploy/.ssh/authorized_keys
+curl https://hashtagjohnt.com/pub > /home/deploy/.ssh/authorized_keys
 chmod 400 /home/deploy/.ssh/authorized_keys
 chown deploy:deploy /home/deploy -R
 

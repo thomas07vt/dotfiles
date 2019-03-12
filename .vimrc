@@ -17,7 +17,6 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'groenewege/vim-less'
-Plug 'prettier/vim-prettier'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'thoughtbot/vim-rspec'
@@ -33,8 +32,28 @@ Plug 'posva/vim-vue'
 Plug 'sjl/gundo.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'yssl/QFEnter'
-Plug 'jeetsukumaran/vim-buffergator'
-
+Plug 'tpope/vim-jdaddy'
+Plug 'vimtaku/hl_matchit.vim'
+Plug 'othree/html5.vim'
+Plug 'tpope/vim-ragtag'
+" How to use ragtag
+" Mapping       Changed to   (cursor = ^) ~
+" <C-X>=        foo<%= ^ %>                               *ragtag-CTRL-X_=*
+" <C-X>+        <%= foo^ %>                               *ragtag-CTRL-X_+*
+" <C-X>-        foo<% ^ %>                                *ragtag-CTRL-X_-*
+" <C-X>_        <% foo^ %>                                *ragtag-CTRL-X__*
+" <C-X>'        foo<%# ^ %>                               *ragtag-CTRL-X_'*
+"               (mnemonic: ' is a comment in ASP VBS)
+" <C-X>"        <%# foo^ %>                               *ragtag-CTRL-X_quote*
+" <C-X><Space>  <foo>^</foo>                              *ragtag-CTRL-X_<Space>*
+" <C-X><CR>     <foo>\n^\n</foo>                          *ragtag-CTRL-X_<CR>*
+" <C-X>/        Last HTML tag closed                      *ragtag-CTRL-X_/*
+" <C-X>!        <!DOCTYPE...>/<?xml ...?> (menu)          *ragtag-CTRL-X_!*
+" <C-X>@        <link rel="stylesheet" ...>               *ragtag-CTRL-X_@*
+"               (mnemonic: @ is used for importing in a CSS file)
+" <C-X>#        <meta http-equiv="Content-Type" ... />    *ragtag-CTRL-X_#*
+" <C-X>$        <script src="/javascripts/^.js"></script> *ragtag-CTRL-X_$*
+"               (mnemonic: $ is valid in javascript identifiers)
 call plug#end()
 
 " Leader
@@ -66,6 +85,7 @@ set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
 " FzF
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>
 
 colorscheme monokai
 
@@ -76,9 +96,6 @@ highlight Folded  guibg=#0A0A0A guifg=#9090D0
 " Move cursor by display lines when wrapping
 nnoremap j gj
 nnoremap k gk
-
-" Strip all trailing whitespace in the current file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Fold tag function
 " Change
@@ -163,10 +180,15 @@ vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
+" Always yank into the clipboard buffer
+nnoremap y "+y
+
 " copy word
 nnoremap <leader>cw "+yiw
 " copy page
 nnoremap <leader>cp ggv<S-g><S-$>"+y
+" copy filename
+nnoremap <leader>cf :let @+=expand("%")<CR>
 
 " Copy Whole Line in normal mode
 " I still want to be able to get into visual block
@@ -183,9 +205,6 @@ map <S-j> 10j
 map <S-k> 10k
 map <S-h> 30h
 map <S-l> 30l
-
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
@@ -285,10 +304,8 @@ xnoremap <C-k>  :m-2<CR>gv=gv
 " move selected lines down one line
 xnoremap <C-j> :m'>+<CR>gv=gv
 
-" don't run prettier on save, instead use <leader>f when neaded
-let g:prettier#exec_cmd_path = "~/.config/yarn/global/node_modules/.bin/prettier"
-let g:prettier#autoformat = 0
-nmap <leader>f :Prettier<CR>
+" Format the current file
+nmap <leader>f gg=G :%s/\s\+$//<CR> :let @/=''<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -297,3 +314,12 @@ nnoremap <leader>u :GundoToggle<CR>
 nnoremap gs :SplitjoinSplit<CR>
 nnoremap gj :SplitjoinJoin<CR>
 
+" Format json
+nmap <leader>jp gqaj<CR>
+
+" Apply macros with ease
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" % to bounce from do to end etc.
+runtime! macros/matchit.vim
