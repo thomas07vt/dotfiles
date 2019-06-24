@@ -35,7 +35,7 @@ Plug 'yssl/QFEnter'
 Plug 'tpope/vim-jdaddy'
 Plug 'vimtaku/hl_matchit.vim'
 Plug 'othree/html5.vim'
-Plug 'tpope/vim-ragtag'
+" Plug 'tpope/vim-ragtag'
 " How to use ragtag
 " Mapping       Changed to   (cursor = ^) ~
 " <C-X>=        foo<%= ^ %>                               *ragtag-CTRL-X_=*
