@@ -34,7 +34,7 @@ alias vimclean="vim -u NONE"
 
 # RVM
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 if [ -f '.ruby-gemset' ]; then cd .; fi
 
 # Xmodmap
