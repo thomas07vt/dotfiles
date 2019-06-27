@@ -32,6 +32,11 @@ ln -s "$cur_dir/templates/" ~/.vim/templates
 #####
 ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
 
+#####
+# Import git-completion.sh
+#####
+ln -s "$cur_dir/git-completion.sh" ~/git-completion.sh
+
 echo -e "\nsource $cur_dir/.bashrc" >> ~/.bashrc
 
 echo 'done'

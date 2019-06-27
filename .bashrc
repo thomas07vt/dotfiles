@@ -60,4 +60,8 @@ export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin" # Adding Go to the path
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+source ~/git-completion.sh
+
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
 source "$HOME/.sensitive"
