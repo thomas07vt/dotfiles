@@ -62,6 +62,7 @@ export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin" # Adding Go to the path
 
 source ~/git-completion.sh
 
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+# I want to do this using udev but I can't figure it out
+# [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 source "$HOME/.sensitive"
