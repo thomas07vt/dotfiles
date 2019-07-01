@@ -18,6 +18,7 @@ alias gcb="git checkout -b"
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gf='git fetch'
+alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--" --no-verify'
 alias vi='vim'
 alias vimclean="vim -u NONE"
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
