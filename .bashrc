@@ -1,6 +1,8 @@
 export EDITOR="vim"
 export PORT="9999"
 export GOPATH=$HOME/code/go
+export RAILS_MAX_THREADS=1
+export WEB_CONCURRENCY=0
 
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
