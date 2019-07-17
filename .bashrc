@@ -31,6 +31,7 @@ historySearch() {
   if [ $1 = "run" ]
   then
     cmd=$(history | grep "^  $2  " | sed s/"  $2  "/""/)
+    echo "RUN: [$cmd]"; echo ''
     $cmd
   else
     history | grep "$@"
