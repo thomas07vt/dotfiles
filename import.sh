@@ -37,6 +37,12 @@ ln -s "$cur_dir/.Xmodmap" ~/.Xmodmap
 #####
 ln -s "$cur_dir/git-completion.sh" ~/git-completion.sh
 
+#####
+# Import foreman up command
+#####
+mkdir -p ~/bin/
+ln -s "$cur_dir/scripts/up" ~/bin/up
+
 echo -e "\nsource $cur_dir/.bashrc" >> ~/.bashrc
 
 echo 'done'
