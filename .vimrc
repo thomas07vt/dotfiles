@@ -35,6 +35,13 @@ Plug 'yssl/QFEnter'
 Plug 'tpope/vim-jdaddy'
 Plug 'vimtaku/hl_matchit.vim'
 Plug 'othree/html5.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'sickill/vim-monokai'
+Plug 'nightsense/snow'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+Plug 'mhartington/oceanic-next'
+
 " Plug 'tpope/vim-ragtag'
 " How to use ragtag
 " Mapping       Changed to   (cursor = ^) ~
@@ -87,11 +94,39 @@ set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 nnoremap <C-p> :Files<CR>
 nnoremap <C-b> :Buffers<CR>
 
-colorscheme monokai
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
-syntax on " Syntax highlighting on
+syntax enable
+set background=dark " for the dark version
+"colorscheme one
+colorscheme OceanicNext
+
+" colorscheme onedark
+" colorscheme monokai
+
+" syntax on " Syntax highlighting on
+autocmd BufEnter * :syntax sync fromstart
+
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
+" highlight Search guibg='#EDF2F7' guifg=NONE ctermbg=White ctermfg=Black
+" clear highlight on est
+nnoremap <CR> :noh<CR><CR>
+
 
 " Move cursor by display lines when wrapping
 nnoremap j gj
@@ -323,3 +358,6 @@ vnoremap Q :norm @q<cr>
 
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
+
+" https://github.com/vim/vim/issues/24
+set timeout timeoutlen=5000 ttimeoutlen=100
