@@ -6,6 +6,10 @@ if [[ -e "$cur_dir/Procfile.dev" ]]
 then
   echo "Starting Foreman using: $cur_dir/Procfile.dev"
   procfile="$cur_dir/Procfile.dev"
+elif [[ -e "$cur_dir/.Procfile.dev" ]]
+then
+  echo "Starting Foreman using: $cur_dir/.Procfile.dev"
+  procfile="$cur_dir/.Procfile.dev"
 else
   echo "Starting Foreman using: $HOME/.Procfile.dev"
   procfile="$HOME/.Procfile.dev"

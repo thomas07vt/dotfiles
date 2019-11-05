@@ -41,6 +41,7 @@ Plug 'nightsense/snow'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'mhartington/oceanic-next'
+Plug 'jgdavey/vim-blockle'
 
 " Plug 'tpope/vim-ragtag'
 " How to use ragtag
@@ -125,7 +126,8 @@ highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 " highlight Search guibg='#EDF2F7' guifg=NONE ctermbg=White ctermfg=Black
 " clear highlight on est
-nnoremap <CR> :noh<CR><CR>
+" nnoremap <CR> :noh<CR><CR>
+nnoremap <esc><esc> :noh<return><esc>
 
 
 " Move cursor by display lines when wrapping
@@ -360,4 +362,4 @@ vnoremap Q :norm @q<cr>
 runtime! macros/matchit.vim
 
 " https://github.com/vim/vim/issues/24
-set timeout timeoutlen=5000 ttimeoutlen=100
+set timeout timeoutlen=700 ttimeoutlen=100
